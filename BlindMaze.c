@@ -258,52 +258,51 @@ void NavigateMaze(Maze maze)
 			scanf("%c", &dir);
 		}while(dir!='w' && dir!='a' && dir!='s' && dir!='d' && dir!='q');
 		
+		printf(" (%d, %d)  ", posx, posy);
+		
 		switch(dir){
 			
 			case 'w':
 				if(maze.mazeArray[posx][posy][0] != 1){
 						posy -= 1;
-						printf("   0");
 					}else{
-						printf("   1");
+						printf("WALL\n");
 					}
 					break;
 					
 				case 'd':
 					if(maze.mazeArray[posx][posy][1] != 1){
 						posx += 1;
-						printf("   0");
 					}else{
-						printf("   1");
+						printf("WALL\n");
 					}
 					break;
 					
 				case 's':
 					if(maze.mazeArray[posx][posy][2] != 1){
 						posy += 1;
-						printf("   0");
 					}else{
-						printf("   1");
+						printf("WALL\n");
 					}
 					break;
 					
 				case 'a':
 					if(maze.mazeArray[posx][posy][3] != 1){
 						posx -= 1;
-						printf("   0");
 					}else{
-						printf("   1");
+						printf("WALL\n");
 					}
 					break;
 				
-			}
+		}
 			
-			printf("   %d, %d\n", posx, posy);
+			
 			
 	}while(dir!='q');
 	
 }
 
+//----Prints the maze with all the data
 void PrintMaze(Maze *maze){
 		for(int i = 0; i < maze->height; i++){
 			for(int j = 0; j < maze->width; j++){
@@ -315,6 +314,7 @@ void PrintMaze(Maze *maze){
 		return;
 }
 
+//----Prints the maze in a nicer format
 void PrintMazeFormat(Maze *maze){
 	
 	printf("_");
@@ -339,6 +339,7 @@ void PrintMazeFormat(Maze *maze){
 	return;
 }
 
+//----Function for breaking walls
 void Open(Maze *maze, int x, int y, int dir){
 	
 	maze->mazeArray[x][y][dir] = 0;
