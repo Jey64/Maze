@@ -29,7 +29,7 @@ int isdigit(int c);
 int main(void)
 {	
 	int x, y, n;
-	char c;
+	char c,k;
 	
 	do{
 		if(!c)
@@ -50,9 +50,23 @@ int main(void)
 	}while(n==0);
 	
 	do{
+		if(!k)
 		printf("Enter height of maze: ");
 		n = scanf("%d", &y);
-	}while(n==0 || y < 3);
+		if (n == 0)
+		{
+			printf("%s\n","Invalid Input, please enter a number greater than 3");
+			do
+			{
+    			k = getchar();
+ 			}
+  		while (!isdigit(k));
+	  	ungetc(k, stdin);
+ 		 //consume non-numeric chars from buffer
+		}
+
+	}while(n==0);
+
 	
 	Maze maze = GenerateMaze(x, y);
 	//PrintMaze(&maze);
