@@ -250,13 +250,13 @@ void NavigateMaze(Maze maze)
 	char dir; // wasd
 	int posx = 0, posy = 0; //to keep track of the position in the maze
 	
-	printf("\nNavigating maze:   (Type w, a, s, d.  Type q to quit.)\n");
+	printf("\nNavigating maze:   (Type w, a, s, d.  Type r to re-print and q to quit.)\n");
 	
 	do{
 		
 		do{
 			scanf("%c", &dir);
-		}while(dir!='w' && dir!='a' && dir!='s' && dir!='d' && dir!='q');
+		}while(dir!='w' && dir!='a' && dir!='s' && dir!='d' && dir!='q' && dir!='r');
 		
 		printf(" (%d, %d)  ", posx, posy);
 		
@@ -266,7 +266,7 @@ void NavigateMaze(Maze maze)
 				if(maze.mazeArray[posx][posy][0] != 1){
 						posy -= 1;
 					}else{
-						printf("WALL\n");
+						printf("WALL");
 					}
 					break;
 					
@@ -274,7 +274,7 @@ void NavigateMaze(Maze maze)
 					if(maze.mazeArray[posx][posy][1] != 1){
 						posx += 1;
 					}else{
-						printf("WALL\n");
+						printf("WALL");
 					}
 					break;
 					
@@ -282,7 +282,7 @@ void NavigateMaze(Maze maze)
 					if(maze.mazeArray[posx][posy][2] != 1){
 						posy += 1;
 					}else{
-						printf("WALL\n");
+						printf("WALL");
 					}
 					break;
 					
@@ -290,12 +290,17 @@ void NavigateMaze(Maze maze)
 					if(maze.mazeArray[posx][posy][3] != 1){
 						posx -= 1;
 					}else{
-						printf("WALL\n");
+						printf("WALL");
 					}
 					break;
 				
+				case 'r':
+					printf("\n");
+					PrintMazeFormat(&maze);
+					break;
+				
 		}
-			
+		printf("\n");
 			
 			
 	}while(dir!='q');
