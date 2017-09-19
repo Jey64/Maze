@@ -24,20 +24,35 @@ void NavigateMaze(Maze maze);
 void PrintMaze(Maze *maze);
 void PrintMazeFormat(Maze *maze);
 void Open(Maze *maze, int x, int y, int dir);
+int isdigit(int c);
 
 int main(void)
 {	
 	int x, y, n;
+	char c;
 	
 	do{
-		printf("Enter width of maze: ");
+		if(!c)
+		printf("Enter width of maze\n");
 		n = scanf("%d", &x);
-	}while(n!=1 || x < 3);
+		if (n == 0)
+		{
+			printf("%s\n","Invalid Input, please enter a number greater than 3");
+			do
+			{
+    			c = getchar();
+ 			}
+  		while (!isdigit(c));
+	  	ungetc(c, stdin);
+ 		 //consume non-numeric chars from buffer
+		}
+
+	}while(n==0);
 	
 	do{
 		printf("Enter height of maze: ");
 		n = scanf("%d", &y);
-	}while(n!=1 || y < 3);
+	}while(n==0 || y < 3);
 	
 	Maze maze = GenerateMaze(x, y);
 	//PrintMaze(&maze);
