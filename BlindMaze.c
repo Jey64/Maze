@@ -28,45 +28,36 @@ int isdigit(int c);
 
 int main(void)
 {	
-	int x, y, n;
-	char c,k;
-	
-	do{
-		if(!c)
-		printf("Enter width of maze\n");
-		n = scanf("%d", &x);
-		if (n == 0)
+	int x, y =0;
+
+
+	printf("%s\n","Endter width of maze (minimum of 4)"); 
+
+	do //handles any input but only allows a num greater than 4
+	{
+		scanf("%d",&x);
+		if(!x || x < 4)
 		{
-			printf("%s\n","Invalid Input, please enter a number greater than 3");
-			do
-			{
-    			c = getchar();
- 			}
-  		while (!isdigit(c));
-	  	ungetc(c, stdin);
- 		 //consume non-numeric chars from buffer
+			getchar();
 		}
+	} while (!x || x < 4);
 
-	}while(n==0);
-	
-	do{
-		if(!k)
-		printf("Enter height of maze: ");
-		n = scanf("%d", &y);
-		if (n == 0)
+
+
+	printf("%s\n","Endter height of maze (minimum of 4)"); 
+	do //handles any input but only allows a num greater than 4
+	{
+		printf("%s%d\n","point 1 ",y );
+		scanf("%d",&y);
+		printf("%s%d\n","point 2 ",y );
+		if(!y || y < 4)
 		{
-			printf("%s\n","Invalid Input, please enter a number greater than 3");
-			do
-			{
-    			k = getchar();
- 			}
-  		while (!isdigit(k));
-	  	ungetc(k, stdin);
- 		 //consume non-numeric chars from buffer
+			printf("%s%d\n","point 3 ",y );
+			getchar();
+			printf("%s%d\n","point 4 ",y );
 		}
-
-	}while(n==0);
-
+		printf("%s%d\n","point 5 ",y );
+	} while (!y || y < 4);
 	
 	Maze maze = GenerateMaze(x, y);
 	//PrintMaze(&maze);
