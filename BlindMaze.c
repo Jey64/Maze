@@ -21,6 +21,7 @@ typedef struct Maze_struct {
 
 Maze GenerateMaze(int mazeWidth, int mazeHeight);
 void NavigateMaze(Maze maze);
+Maze InitMaze(Maze maze);
 void PrintMaze(Maze *maze);
 void PrintMazeFormat(Maze *maze);
 void Open(Maze *maze, int x, int y, int dir);
@@ -31,7 +32,7 @@ int main(void)
 	int x =0, y =0;
 
 
-	printf("%s\n","Endter width of maze (minimum of 4)"); 
+	printf("\nEnter width of maze (minimum of 4)"); 
 
 	do //handles any input but only allows a num greater than 4
 	{
@@ -44,7 +45,7 @@ int main(void)
 
 
 
-	printf("%s\n","Endter height of maze (minimum of 4)"); 
+	printf("\nEnter height of maze (minimum of 4)"); 
 	do //handles any input but only allows a num greater than 4
 	{
 		scanf("%d",&y);
@@ -67,18 +68,10 @@ Maze GenerateMaze(int mazeWidth, int mazeHeight)
 	Maze maze;
 	maze.width = mazeWidth;
 	maze.height = mazeHeight;
+	int isconnected = 0;
+	
 	time_t t;
 	srand((unsigned) time(&t));
-	
-	//---fill maze with walls
-	for(int i = 0; i < maze.width; i++){
-		for(int j = 0; j < maze.height; j++){
-			maze.mazeArray[i][j][0] = 1;
-			maze.mazeArray[i][j][1] = 1;
-			maze.mazeArray[i][j][2] = 1;
-			maze.mazeArray[i][j][3] = 1;
-		}
-	}
 	
 	//------------GENERATE MAZE-------------------
 	
@@ -86,7 +79,6 @@ Maze GenerateMaze(int mazeWidth, int mazeHeight)
 	int r4, r5, res2, p_Dir2 = 3;  // variables for end path
 	int n = 0, r3;
 	int path1x = 0, path1y = 0, path2x = maze.width - 1, path2y = maze.height - 1;
-	int isconnected = 0;
 	
 	//--The bigger the maze, the more likely the path will go down and right
 	int r3_max;
@@ -99,10 +91,15 @@ Maze GenerateMaze(int mazeWidth, int mazeHeight)
 	}else{
 		r3_max = 6;
 	}
-
+	
+	//length of paths depend on size of maze
+	int pathLength = (maze.width + maze.height) / 2 * 5;
+	
 	do{
+	
+		maze = InitMaze(maze);
 		
-		while(n < (maze.width + maze.height) / 2 * 5){
+		while(n < pathLength){
 			
 			n++;
 			r1 = rand()%4;
@@ -237,9 +234,19 @@ Maze GenerateMaze(int mazeWidth, int mazeHeight)
 				break;
 			}
 		}
-		printf("%d", isconnected);
+		printf("%d\n", isconnected);
+		
+		//if it's not connected then reset everything
+		if(!isconnected){
+			path1x = 0, path1y = 0;
+			path2x = maze.width-1, path2y = maze.height-1;
+			p_Dir1 = 1, p_Dir2 = 3;
+			n = 0;
+		}
+		
 		PrintMazeFormat(&maze);
-	}while(isconnected != 1);
+		
+	}while(!isconnected);
 	
 	//------------END OF ALGORYTHM------------------
 	
@@ -319,6 +326,26 @@ void NavigateMaze(Maze maze)
 			
 			
 	}while(dir!='q');
+	
+}
+
+//call like maze = InitMaze(maze);
+Maze InitMaze(Maze maze){
+	
+	//fill with walls
+	//set trails to 0
+	
+	for(int i = 0; i < maze.width; i++){
+		for(int j = 0; j < maze.height; j++){
+			maze.mazeArray[i][j][0] = 1;
+			maze.mazeArray[i][j][1] = 1;
+			maze.mazeArray[i][j][2] = 1;
+			maze.mazeArray[i][j][3] = 1;
+			maze.mazeArray[i][j][4] = 0;
+		}
+	}
+	
+	return maze;
 	
 }
 
