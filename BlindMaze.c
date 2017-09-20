@@ -28,7 +28,7 @@ int isdigit(int c);
 
 int main(void)
 {	
-	int x, y =0;
+	int x =0, y =0;
 
 
 	printf("%s\n","Endter width of maze (minimum of 4)"); 
@@ -36,28 +36,23 @@ int main(void)
 	do //handles any input but only allows a num greater than 4
 	{
 		scanf("%d",&x);
-		if(!x || x < 4)
+		if(x < 4)
 		{
 			getchar();
 		}
-	} while (!x || x < 4);
+	} while (x < 4);
 
 
 
 	printf("%s\n","Endter height of maze (minimum of 4)"); 
 	do //handles any input but only allows a num greater than 4
 	{
-		printf("%s%d\n","point 1 ",y );
 		scanf("%d",&y);
-		printf("%s%d\n","point 2 ",y );
-		if(!y || y < 4)
+		if(y < 4)
 		{
-			printf("%s%d\n","point 3 ",y );
 			getchar();
-			printf("%s%d\n","point 4 ",y );
 		}
-		printf("%s%d\n","point 5 ",y );
-	} while (!y || y < 4);
+	} while (y < 4);
 	
 	Maze maze = GenerateMaze(x, y);
 	//PrintMaze(&maze);
